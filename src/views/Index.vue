@@ -3,7 +3,7 @@
         <div class="head">
             <div class="w login-group">
                 <div class="login">
-                    <a href="#" class="login">登录</a>
+                    <router-link to="login">登录</router-link>
                     <a href="#" class="register">注册</a>
                 </div>
                 <a href="#" class="login">我的订单</a>
@@ -21,14 +21,14 @@
         </div>
         <div class="index-content">
             <el-form label-position="top" label-width="80px">
-                <el-form-item label="起始站">
-                    <el-input></el-input>
+                <el-form-item label="出发城市">
+                    <el-input placeholder="出发城市"></el-input>
                 </el-form-item>
-                <el-form-item label="终点站">
-                    <el-input></el-input>
+                <el-form-item label="到达城市">
+                    <el-input placeholder="到达城市"></el-input>
                 </el-form-item>
-                <el-form-item label="出发时间">
-                    <el-input></el-input>
+                <el-form-item label="出发日期">
+                    <el-input placeholder="出发日期"></el-input>
                 </el-form-item>
                 <el-button style="width: 100%" type="warning" icon="el-icon-search">查询</el-button>
             </el-form>

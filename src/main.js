@@ -15,7 +15,7 @@ axios.defaults.withCredentials = true
 
 Vue.prototype.axios = axios
 Vue.prototype.baseUrl = 'http://localhost'
-const TITLE = "第二商城-"
+const TITLE = "火车售票-"
 
 Vue.config.productionTip = false;
 
