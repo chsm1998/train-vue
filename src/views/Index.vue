@@ -9,6 +9,7 @@
                     </template>
                     <template v-else>
                         <a href="#">{{$root.$data.user.name}}</a>
+                        <a href="#" @click="exitLogin">退出登录</a>
                     </template>
                 </div>
                 <a href="#" class="login">我的订单</a>
@@ -47,6 +48,7 @@
         data() {
             return {
                 getUserUrl: '/user/getLoginUser',
+                exitLoginUrl: '/user/exitLogin',
             }
         },
         created() {
@@ -60,6 +62,11 @@
                             this.$root.$data.user = res.data.data
                         }
                     })
+            },
+            exitLogin() {
+                this.$myGet(this.exitLoginUrl)
+                this.$root.$data.user = null
+                return false
             }
         }
     }

@@ -14,7 +14,7 @@ axios.defaults.baseURL = "http://localhost"
 axios.defaults.withCredentials = true
 
 axios.interceptors.response.use(res => {
-    if (res.data.status === 500) {
+    if (res.data.status === 500 || res.data.status === 400) {
         message(res.data.msg, 'error')
     }
     return res
@@ -29,11 +29,12 @@ Vue.prototype.$myGet = function (url, method, params) {
             if (res.data.status === 200) {
                 message(res.data.msg, 'success')
                 if (method != null) {
-                    method()
+                    method(res)
                 }
             }
         })
         .catch(error => {
+            console.log(error)
             message('服务端响应异常', 'error')
         })
 }
@@ -43,11 +44,12 @@ Vue.prototype.$myPost = function (url, method, params) {
             if (res.data.status === 200) {
                 message(res.data.msg, 'success')
                 if (method != null) {
-                    method()
+                    method(res)
                 }
             }
         })
         .catch(error => {
+            console.log(error)
             message('服务端响应异常', 'error')
         })
 }
@@ -63,6 +65,7 @@ Vue.prototype.$myPut = function (url, method, params) {
         })
         .catch(error => {
             console.log(error)
+            console.log(error)
             message('服务端响应异常', 'error')
         })
 }
@@ -72,11 +75,12 @@ Vue.prototype.$myDelete = function (url, method, params) {
             if (res.data.status === 200) {
                 message(res.data.msg, 'success')
                 if (method != null) {
-                    method()
+                    method(res)
                 }
             }
         })
         .catch(error => {
+            console.log(error)
             message('服务端响应异常', 'error')
         })
 }

@@ -6,14 +6,14 @@
                     <use xlink:href="#icon-huoche"></use>
                 </svg>
             </div>
-            <el-form label-position="top" label-width="80px">
-                <el-form-item label="用户名">
-                    <el-input placeholder="用户名"></el-input>
+            <el-form :model="form" ref="loginForm" :rules="rules" label-position="top" label-width="80px">
+                <el-form-item label="用户名" prop="username">
+                    <el-input placeholder="用户名" v-model="form.username"></el-input>
                 </el-form-item>
-                <el-form-item label="密码">
-                    <el-input placeholder="密码"></el-input>
+                <el-form-item label="密码" prop="password">
+                    <el-input placeholder="密码" type="password" v-model="form.password"></el-input>
                 </el-form-item>
-                <el-button style="width: 100%; margin-bottom: 10px" type="primary">登录</el-button>
+                <el-button style="width: 100%; margin-bottom: 10px" @click="login('loginForm')" type="primary">登录</el-button>
                 <el-button style="width: 100%; margin-left: 0" @click="toRegister" type="danger">还未注册？点此注册</el-button>
             </el-form>
         </div>
@@ -23,9 +23,39 @@
 <script>
     export default {
         name: "Login",
+        data() {
+            return {
+                loginUrl: '/user/login',
+                form: {
+                    username: null,
+                    password: null
+                },
+                rules: {
+                    username: [
+                        { required: true, message: '请输入用户名', trigger: ['change', 'blur'] },
+                    ],
+                    password: [
+                        { required: true, message: '请输入密码', trigger: ['change', 'blur'] },
+                    ]
+                }
+            }
+        },
         methods: {
             toRegister() {
                 this.$router.push({path: '/register'})
+            },
+            loginMethod(v) {
+                this.$root.$data.user = v.data.data
+                this.$router.push({ path: '/' })
+            },
+            login(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.$myPost(this.loginUrl, this.loginMethod, this.form)
+                    } else {
+                        this.$myMessage('部分内容填写不规范，请完善后再试', 'error')
+                    }
+                })
             }
         }
     }
