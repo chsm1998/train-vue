@@ -13,7 +13,73 @@ Vue.use(ElementUI);
 axios.defaults.baseURL = "http://localhost"
 axios.defaults.withCredentials = true
 
+axios.interceptors.response.use(res => {
+    if (res.data.status === 500) {
+        message(res.data.msg, 'error')
+    }
+    return res
+})
+
 Vue.prototype.axios = axios
+Vue.prototype.$myGet = function (url, method, params) {
+    axios.get(url, {
+        params: params
+    })
+        .then(res => {
+            if (res.data.status === 200) {
+                message(res.data.msg, 'success')
+                if (method != null) {
+                    method()
+                }
+            }
+        })
+        .catch(error => {
+            message('服务端响应异常', 'error')
+        })
+}
+Vue.prototype.$myPost = function (url, method, params) {
+    axios.post(url, params)
+        .then(res => {
+            if (res.data.status === 200) {
+                message(res.data.msg, 'success')
+                if (method != null) {
+                    method()
+                }
+            }
+        })
+        .catch(error => {
+            message('服务端响应异常', 'error')
+        })
+}
+Vue.prototype.$myPut = function (url, method, params) {
+    axios.put(url, params)
+        .then(res => {
+            if (res.data.status === 200) {
+                if (res.data.status === 200) {
+                    message(res.data.msg, 'success')
+                    method(res)
+                }
+            }
+        })
+        .catch(error => {
+            console.log(error)
+            message('服务端响应异常', 'error')
+        })
+}
+Vue.prototype.$myDelete = function (url, method, params) {
+    axios.delete(url, params)
+        .then(res => {
+            if (res.data.status === 200) {
+                message(res.data.msg, 'success')
+                if (method != null) {
+                    method()
+                }
+            }
+        })
+        .catch(error => {
+            message('服务端响应异常', 'error')
+        })
+}
 Vue.prototype.baseUrl = 'http://localhost'
 const TITLE = "火车售票-"
 
@@ -26,7 +92,22 @@ router.beforeEach((to, from, next) => {
     next()
 })
 
-new Vue({
-  router,
-  render: h => h(App)
+let vm = new Vue({
+    router,
+    data: {
+        user: null
+    },
+    render: h => h(App)
 }).$mount("#app");
+
+function message(msg, type) {
+    vm.$message({
+        showClose: true,
+        message: msg,
+        type: type
+    })
+}
+
+Vue.prototype.$myMessage = function (msg, type) {
+    message(msg, type)
+}

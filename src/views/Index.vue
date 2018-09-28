@@ -3,8 +3,13 @@
         <div class="head">
             <div class="w login-group">
                 <div class="login">
-                    <router-link to="login">登录</router-link>
-                    <a href="#" class="register">注册</a>
+                    <template v-if="$root.$data.user == null">
+                        <router-link to="login">登录</router-link>
+                        <router-link to="register">注册</router-link>
+                    </template>
+                    <template v-else>
+                        <a href="#">{{$root.$data.user.name}}</a>
+                    </template>
                 </div>
                 <a href="#" class="login">我的订单</a>
             </div>
@@ -38,7 +43,25 @@
 
 <script>
     export default {
-        name: "Index"
+        name: "Index",
+        data() {
+            return {
+                getUserUrl: '/user/getLoginUser',
+            }
+        },
+        created() {
+            this.getUser()
+        },
+        methods: {
+            getUser() {
+                this.axios.get(this.getUserUrl)
+                    .then(res => {
+                        if (res.data.status === 200) {
+                            this.$root.$data.user = res.data.data
+                        }
+                    })
+            }
+        }
     }
 </script>
 
