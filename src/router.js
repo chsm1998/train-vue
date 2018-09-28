@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Index from "./views/Index";
 import Login from "./views/Login";
 import Register from "./views/Register"
+import MaIndex from "./views/manager/MaIndex"
 
 Vue.use(Router);
 
@@ -30,6 +31,14 @@ export default new Router({
           component: Register,
           meta: {
               title: '用户注册'
+          },
+      },
+      {
+          path: "/maIndex",
+          name: "maIndex",
+          component: MaIndex,
+          meta: {
+              title: '后台管理'
           },
       }
   ]

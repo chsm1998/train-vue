@@ -13,6 +13,7 @@
                     </template>
                 </div>
                 <a href="#" class="login">我的订单</a>
+                <router-link to="maIndex">后台管理</router-link>
             </div>
         </div>
         <div class="logo">
