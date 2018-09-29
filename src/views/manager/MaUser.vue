@@ -1,6 +1,6 @@
 <template>
     <div>
-        <search placeholder="请输入要搜索的用户名" :is-add-btn="false" :search-url="searchUrl" my-key="username"></search>
+        <search @search="searchChange" placeholder="请输入要搜索的用户名" :is-add-btn="false" :search-url="searchUrl" my-key="username"></search>
         <my-table
                 :labels="labels"
                 name="用户" :btn-group="btnGroup"
@@ -31,6 +31,11 @@
                     update: false,
                     delete: false
                 }
+            }
+        },
+        methods: {
+            searchChange(val) {
+                this.search = val
             }
         },
         components: {

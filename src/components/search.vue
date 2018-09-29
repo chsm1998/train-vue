@@ -37,18 +37,7 @@
                 this.tableData = v.data.data
             },
             handleSelect() {
-                // let params = {
-                //     user: {
-                //         username: this.search
-                //     },
-                //     myPage: {
-                //         myPage: {
-                //             currPage: 1,
-                //             pageSize: this.pageSize
-                //         }
-                //     }
-                // }
-                // this.axios.get(this.clickUrl, this.getMethod, params)
+                this.$emit('search', this.search)
             }
         }
     }
