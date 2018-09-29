@@ -1,18 +1,18 @@
 <template>
     <el-container style="height: 700px; border: 1px solid #eee">
         <el-header style="text-align: right; font-size: 12px">
+            <span v-if="manager != null">{{ manager.username }}</span>
             <el-dropdown @command="command">
                 <i class="el-icon-setting" style="margin-right: 15px"></i>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item :command="exit">退出登录</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
-            <span v-if="manager != null">{{ manager.name }}</span>
         </el-header>
         <el-container>
             <el-aside width="200px" style="height: 640px;background-color: rgb(238, 241, 246)">
                 <el-menu :router=true :unique-opened=true>
-                    <el-menu-item index="/product">用户管理</el-menu-item>
+                    <el-menu-item index="/maUser">用户管理</el-menu-item>
                     <el-menu-item index="/category">站点管理</el-menu-item>
                     <el-menu-item index="/category">列车管理</el-menu-item>
                     <el-menu-item index="/maOrder">订单管理</el-menu-item>
@@ -41,21 +41,13 @@
 
             },
             getManager: function () {
-                this.axios.get('/manager/after/manager')
+                this.axios.get('/manager/after/getLogin')
                     .then(res => {
                         this.manager = res.data.data
                     })
             },
-            showProducts: function () {
-
-            },
             command: function () {
-                this.axios.get('/zteoa/emp/exit')
-                    .then(res => {
-                        if (res.data) {
-                            this.$router.push('/login');
-                        }
-                    })
+
             }
         }
     }

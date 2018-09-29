@@ -17,6 +17,13 @@ axios.interceptors.response.use(res => {
     if (res.data.status === 500 || res.data.status === 400) {
         message(res.data.msg, 'error')
     }
+    console.log(res.data.status)
+    if (res.data.status === 300) {
+        router.push("/login")
+    }
+    if (res.data.status === 301) {
+        router.push("/maLogin")
+    }
     return res
 })
 

@@ -41,7 +41,7 @@
         },
         methods: {
             loginMethod(v) {
-
+                this.$router.push({ path: '/maIndex' });
             },
             login(formName) {
                 this.$refs[formName].validate((valid) => {
