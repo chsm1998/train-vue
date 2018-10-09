@@ -7,6 +7,7 @@ import MaIndex from "./views/manager/MaIndex";
 import MaLogin from "./views/manager/MaLogin";
 import MaUser from "./views/manager/MaUser";
 import MaSite from "./views/manager/MaSite";
+import MaTrainType from "./views/manager/MaTrainType";
 
 Vue.use(Router);
 
@@ -58,6 +59,14 @@ export default new Router({
                   component: MaSite,
                   meta: {
                       title: '站点管理'
+                  },
+              },
+              {
+                  path: "/maTrainType",
+                  name: "maTrainType",
+                  component: MaTrainType,
+                  meta: {
+                      title: '列车类型管理'
                   },
               },
           ]
