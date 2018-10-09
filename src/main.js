@@ -93,6 +93,11 @@ Vue.prototype.$myDelete = function (url, method, params) {
             message('服务端响应异常', 'error')
         })
 }
+Vue.prototype.$copy = function (obj) {
+    let _obj = JSON.stringify(obj),
+        objClone = JSON.parse(_obj);
+    return objClone
+}
 Vue.prototype.baseUrl = 'http://localhost'
 const TITLE = "火车售票-"
 

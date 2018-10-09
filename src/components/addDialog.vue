@@ -41,6 +41,7 @@
                 titles: [],
                 // 表单数据
                 formData: {},
+                defaultData: {},
                 // 新增数量
                 num: 0,
                 // 新增长度与num保持一致但在num后渲染，若不与num分开将会导致还没watch就开始渲染导致渲染失败
@@ -52,7 +53,8 @@
             this.filterLabels()
             // 判断是可以批量提交
             if (this.batch) {
-                this.formData.list = [{}]
+                this.defaultData.list = [{}]
+                this.formData = this.$copy(this.defaultData)
             }
         },
         watch: {
@@ -74,23 +76,23 @@
             },
             updateLen(newVal) {
                 // 获取真实数量
-                let len = newVal - this.formData.list.length + 1
+                let len = newVal - this.defaultData.list.length + 1
                 if (len > 0) {
                     // 新增列表
                     for (let i = 0; i < len; i++) {
+                        this.defaultData.list.push({})
                         this.formData.list.push({})
                     }
                 } else {
                     // 删除列表
                     for (let i = 0; i < Math.abs(len); i++) {
+                        this.defaultData.list.pop()
                         this.formData.list.pop()
                     }
                 }
+                // this.formData = this.$copy(this.defaultData)
                 // 更新长度
                 this.len = newVal
-            },
-            resetFormData() {
-                this.formData = {}
             },
             addMethod() {
                 this.updateLen(0)
@@ -112,7 +114,7 @@
                 });
             },
             resetForm(formName) {
-                this.$refs[formName].resetFields();
+                this.formData = this.$copy(this.defaultData)
             },
         }
     }
