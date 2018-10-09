@@ -20,15 +20,25 @@
 
     export default {
         name: "search",
-        props: ['placeholder', 'searchUrl', 'myKey', 'isAddBtn', 'clickUrl', 'pageSize', 'name', 'labels'],
+        /**
+         * searchUrl：el-autocomplete的fetch-suggestions回调url
+         * myKey：搜索属性的key
+         * isAddBtn： 是否显示添加按钮
+         * clickUrl： 添加表单提交url
+         * name: 模块名称
+         * labels: table中的labels
+         */
+        props: ['placeholder', 'searchUrl', 'myKey', 'isAddBtn', 'clickUrl', 'name', 'labels'],
         data() {
             return {
+                // 搜索框的值
                 search: '',
-                tableData: null,
+                // 添加按钮的显示与隐藏
                 show: false,
             }
         },
         methods: {
+            // fetch-suggestions回调
             querySearch(queryString, cb) {
                 this.axios.get(this.searchUrl + '?' + this.myKey + '=' + queryString)
                     .then(res => {
@@ -37,9 +47,7 @@
                         }
                     })
             },
-            getMethod(v) {
-                this.tableData = v.data.data
-            },
+            // 搜索事件回调，交由父组件处理，最终会由table处理
             handleSelect() {
                 this.$emit('search', this.search)
             },
@@ -49,6 +57,7 @@
             showClose() {
                 this.show = false
             },
+            // 添加成功回调，刷新表格数据
             success() {
                 this.$emit('refresh', Math.random())
             }

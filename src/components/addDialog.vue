@@ -15,15 +15,25 @@
 <script>
     export default {
         name: "addDialog",
-        props: ['title', 'labels', 'item', 'show', 'url'],
+        /*
+        title: 模块名称
+        labels：同table.vue
+        show: 控制dialog的显示与隐藏
+        url: 表单提交的url
+         */
+        props: ['title', 'labels', 'show', 'url'],
         data() {
             return {
+                // 需要过滤的字段
                 filterList: ['id', 'gmtCreate', 'gmtModified'],
+                // 过滤完成的字段
                 titles: [],
+                // 表单数据
                 formData: {},
             }
         },
         created() {
+            // 过滤无用属性
             this.filterLabels()
         },
         methods: {

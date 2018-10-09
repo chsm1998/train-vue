@@ -34,6 +34,17 @@
 
     export default {
         name: "my-table",
+        /*
+        name: 模块名称
+        labels: {name: 'id', label: '站点id'} name为属性的key label为属性标题
+        btnGroup: 控制查看、更新、删除按钮的显示与隐藏
+        getTableDataUrl： 获取table数据的url
+        searchVal： 搜索框的值
+        searchLabel： 搜索属性的key
+        random： 用于触发watch刷新table
+        deleteUrl： 删除url
+        updateUrl： 更新url
+         */
         props: ['name', 'labels', 'btnGroup', 'getTableDataUrl', 'searchVal', 'searchLabel', 'random', 'deleteUrl', 'updateUrl'],
         data() {
             return {
@@ -51,10 +62,12 @@
             this.getTableData()
         },
         watch: {
+            // 用于搜索组件的查询
             searchVal: function (newVal, oldVal) {
                 this.currPage = 1
                 this.getTableData()
             },
+            // 用于添加组件的数据刷新
             random: function (newVal, oldVal) {
                 this.getTableData()
             }

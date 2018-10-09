@@ -15,6 +15,7 @@
 <script>
     export default {
         name: "updateDialog",
+        // 同addDialog和myDialog
         props: ['title', 'labels', 'item', 'show', 'url'],
         data() {
             return {
@@ -24,6 +25,7 @@
             }
         },
         watch: {
+            // 将数据与组件data绑定，子组件不应改变prop
             item(newVal, oldVal) {
                 this.formData = newVal
             }

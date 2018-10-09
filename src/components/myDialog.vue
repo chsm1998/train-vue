@@ -11,6 +11,7 @@
 <script>
     export default {
         name: "myDialog",
+        // item：数据信息 其他属性同addDialog
         props: ['title', 'labels', 'item', 'show'],
         methods: {
             // 自实现dialog关闭，使用原生关闭方法将改变prop导致控制台报警告
