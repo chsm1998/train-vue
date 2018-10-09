@@ -27,7 +27,7 @@
         watch: {
             // 将数据与组件data绑定，子组件不应改变prop
             item(newVal, oldVal) {
-                this.formData = newVal
+                this.formData = Object.assign({}, newVal)
             }
         },
         created() {
@@ -63,6 +63,7 @@
                 });
             },
             resetForm(formName) {
+                console.log(this.$refs[formName])
                 this.$refs[formName].resetFields();
             },
         },

@@ -11,7 +11,10 @@
         <el-col v-if="isAddBtn" :offset="6" :span="4" class="add">
             <el-button @click="showAdd" type="primary" icon="el-icon-circle-plus">添加{{name}}</el-button>
         </el-col>
-        <add-dialog @success="success" v-if="isAddBtn" @close="showClose" :url="clickUrl" :labels="labels" :title="name" :show="show"></add-dialog>
+        <add-dialog @success="success" v-if="isAddBtn" @close="showClose"
+                    :url="clickUrl" :labels="labels" :title="name" :show="show"
+                    :batch="batch" :batch-label="batchLabel">
+        </add-dialog>
     </el-row>
 </template>
 
@@ -27,8 +30,10 @@
          * clickUrl： 添加表单提交url
          * name: 模块名称
          * labels: table中的labels
+         * batch: 开启批量更新
+         * batchLabel: 批量更新key
          */
-        props: ['placeholder', 'searchUrl', 'myKey', 'isAddBtn', 'clickUrl', 'name', 'labels'],
+        props: ['placeholder', 'searchUrl', 'myKey', 'isAddBtn', 'clickUrl', 'name', 'labels', 'batch', 'batchLabel'],
         data() {
             return {
                 // 搜索框的值

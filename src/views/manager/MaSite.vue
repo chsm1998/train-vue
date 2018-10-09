@@ -1,6 +1,10 @@
 <template>
     <div>
-        <search @refresh="refresh" @search="searchChange" placeholder="请输入要搜索的站点名称" :click-url="addUrl" :labels="labels" :is-add-btn="true" :search-url="searchUrl" my-key="siteName" name="站点"></search>
+        <search @refresh="refresh" @search="searchChange" placeholder="请输入要搜索的站点名称"
+                :click-url="addUrl" :labels="labels" :is-add-btn="true"
+                :search-url="searchUrl" my-key="siteName" name="站点"
+                :batch="true" :batch-label="batchLabel">
+        </search>
         <my-table
                 :labels="labels" :delete-url="deleteUrl"
                 name="站点" :btn-group="btnGroup"
@@ -20,11 +24,14 @@
             return {
                 searchUrl: '/site/after/queryBySiteName',
                 getTableDataUrl: '/site/after/queryPage',
-                addUrl: '/site/after/add',
+                addUrl: '/site/after/addList',
                 deleteUrl: '/site/after/delete',
                 updateUrl: '/site/after/update',
                 search: '',
                 random: 0,
+                batchLabel: [
+                    {name: 'siteName', label: '站点名称'}
+                ],
                 labels: [
                     {name: 'id', label: '站点id'},
                     {name: 'siteName', label: '站点名称'},
