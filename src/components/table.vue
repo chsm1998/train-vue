@@ -2,7 +2,11 @@
     <div>
         <el-row>
             <el-table :data="tableData" max-height="400" style="width: 100%">
-                <el-table-column v-for="v in labels" align="center" :prop="v.name" :label="v.label">
+                <el-table-column v-for="v in filterLabels" align="center" :prop="v.name" :label="v.label"></el-table-column>
+                <el-table-column v-for="v in noContainer" :label="v.label" align="center">
+                    <template slot-scope="scope">
+                        <span>{{ getTime(scope.row[v.name]) }}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column width="200px" fixed="right" label="操作">
                     <template slot-scope="item">
@@ -56,10 +60,17 @@
                 show: false,
                 updateShow: false,
                 item: null,
+                // 需要过滤的字段
+                filterList: ['gmtCreate', 'gmtModified'],
+                // 不包含字段
+                noContainer: [],
+                // 过滤完成字段
+                filterLabels: [],
             }
         },
         created() {
             this.getTableData()
+            this.filterLabel()
         },
         watch: {
             // 用于搜索组件的查询
@@ -72,7 +83,21 @@
                 this.getTableData()
             }
         },
+        computed: {
+            isContainer(v) {
+                return this.filterList.indexOf(v) !== -1
+            }
+        },
         methods: {
+            filterLabel() {
+                this.labels.forEach(v => {
+                    if (this.filterList.indexOf(v.name) === -1) {
+                        this.filterLabels.push(v)
+                    } else {
+                        this.noContainer.push(v)
+                    }
+                })
+            },
             showItem(v) {
                 this.show = true
                 this.item = v
@@ -98,6 +123,10 @@
             getMethod(v) {
                 this.tableData = v.data.data.records
                 this.total = v.data.data.total
+            },
+            getTime: function (time) {
+                let date = new Date(time);
+                return date.getFullYear() + '-' + (parseInt(date.getMonth()) + 1) + '-' + date.getDate() + ' ' + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
             },
             getTableData() {
                 let params = {
