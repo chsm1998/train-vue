@@ -24,15 +24,17 @@
             </div>
         </el-row>
         <my-dialog @close="showClose" :labels="labels" :title="name" :item="item" :show="show"></my-dialog>
+        <update-dialog @success="getTableData" @close="updateShowClose" :url="updateUrl" :labels="labels" :title="name" :item="item" :show="updateShow"></update-dialog>
     </div>
 </template>
 
 <script>
     import myDialog from './myDialog'
+    import updateDialog from './updateDialog'
 
     export default {
         name: "my-table",
-        props: ['name', 'labels', 'btnGroup', 'getTableDataUrl', 'searchVal'],
+        props: ['name', 'labels', 'btnGroup', 'getTableDataUrl', 'searchVal', 'searchLabel', 'random', 'deleteUrl', 'updateUrl'],
         data() {
             return {
                 pageSizes: [5, 10, 15, 20],
@@ -41,6 +43,7 @@
                 total: 0,
                 tableData: null,
                 show: false,
+                updateShow: false,
                 item: null,
             }
         },
@@ -50,6 +53,9 @@
         watch: {
             searchVal: function (newVal, oldVal) {
                 this.currPage = 1
+                this.getTableData()
+            },
+            random: function (newVal, oldVal) {
                 this.getTableData()
             }
         },
@@ -61,11 +67,20 @@
             showClose() {
                 this.show = false
             },
-            updateItem() {
-
+            updateShowClose() {
+                this.updateShow = false
             },
-            deleteItem() {
-
+            updateItem(v) {
+                this.updateShow = true
+                this.item = v
+            },
+            deleteItem(v) {
+                let params = {
+                    params: {
+                        id: v.id
+                    }
+                }
+                this.$myDelete(this.deleteUrl, this.getTableData, params)
             },
             getMethod(v) {
                 this.tableData = v.data.data.records
@@ -73,13 +88,13 @@
             },
             getTableData() {
                 let params = {
-                    username: this.searchVal,
                     myPage: {
                         currPage: this.currPage,
                         pageSize: this.pageSize
                     }
                 }
-                this.$myPost(this.getTableDataUrl, this.getMethod, params)
+                params[this.searchLabel] = this.searchVal
+                this.$myPost(this.getTableDataUrl, this.getMethod, params, false)
             },
             handleSizeChange(val) {
                 this.pageSize = val
@@ -91,7 +106,8 @@
             }
         },
         components: {
-            myDialog: myDialog
+            myDialog: myDialog,
+            updateDialog: updateDialog
         }
     }
 </script>

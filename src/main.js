@@ -45,11 +45,13 @@ Vue.prototype.$myGet = function (url, method, params) {
             message('服务端响应异常', 'error')
         })
 }
-Vue.prototype.$myPost = function (url, method, params) {
+Vue.prototype.$myPost = function (url, method, params, showMessage = true) {
     axios.post(url, params)
         .then(res => {
             if (res.data.status === 200) {
-                message(res.data.msg, 'success')
+                if (showMessage) {
+                    message(res.data.msg, 'success')
+                }
                 if (method != null) {
                     method(res)
                 }

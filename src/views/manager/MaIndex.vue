@@ -13,7 +13,7 @@
             <el-aside width="200px" style="height: 640px;background-color: rgb(238, 241, 246)">
                 <el-menu :router=true :unique-opened=true>
                     <el-menu-item index="/maUser">用户管理</el-menu-item>
-                    <el-menu-item index="/category">站点管理</el-menu-item>
+                    <el-menu-item index="/maSite">站点管理</el-menu-item>
                     <el-menu-item index="/category">列车管理</el-menu-item>
                     <el-menu-item index="/maOrder">订单管理</el-menu-item>
                 </el-menu>

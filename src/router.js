@@ -6,6 +6,7 @@ import Register from "./views/Register";
 import MaIndex from "./views/manager/MaIndex";
 import MaLogin from "./views/manager/MaLogin";
 import MaUser from "./views/manager/MaUser";
+import MaSite from "./views/manager/MaSite";
 
 Vue.use(Router);
 
@@ -49,6 +50,14 @@ export default new Router({
                   component: MaUser,
                   meta: {
                       title: '用户管理'
+                  },
+              },
+              {
+                  path: "/maSite",
+                  name: "maSite",
+                  component: MaSite,
+                  meta: {
+                      title: '站点管理'
                   },
               },
           ]

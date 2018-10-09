@@ -4,7 +4,7 @@
         <my-table
                 :labels="labels"
                 name="用户" :btn-group="btnGroup"
-                :getTableDataUrl="getTableDataUrl" :search-val="search">
+                :getTableDataUrl="getTableDataUrl" :search-val="search" search-label="username">
         </my-table>
     </div>
 </template>
